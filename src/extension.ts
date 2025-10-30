@@ -6,8 +6,8 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Swagger Agent is now active');
 
     // Initialize services
-    const analyzerService = new AnalyzerService();
     const endpointProvider = new EndpointProvider();
+    const analyzerService = new AnalyzerService(endpointProvider);
 
     // Register views
     vscode.window.registerTreeDataProvider('swagger-agent-endpoints', endpointProvider);
