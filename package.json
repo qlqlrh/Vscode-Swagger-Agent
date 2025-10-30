@@ -1,0 +1,76 @@
+{
+  "name": "vscode-swagger-agent",
+  "displayName": "Swagger Agent",
+  "description": "Automatically generate OpenAPI/Swagger annotations for Spring Boot controllers",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:java"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "swagger-agent.analyze",
+        "title": "Swagger Agent: Analyze Current File"
+      },
+      {
+        "command": "swagger-agent.generateAnnotations",
+        "title": "Swagger Agent: Generate Annotations"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "swagger-agent-endpoints",
+          "name": "API Endpoints"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Swagger Agent",
+      "properties": {
+        "swagger-agent.autoAnalyze": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically analyze files on save"
+        },
+        "swagger-agent.language": {
+          "type": "string",
+          "enum": ["ko", "en"],
+          "default": "ko",
+          "description": "Language for generated annotations"
+        },
+        "swagger-agent.analysisDepth": {
+          "type": "string",
+          "enum": ["full", "incremental"],
+          "default": "incremental",
+          "description": "Analysis depth mode"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^16.18.34",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "^8.47.0",
+    "typescript": "^5.2.2"
+  }
+}
