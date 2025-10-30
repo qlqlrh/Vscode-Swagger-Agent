@@ -14,10 +14,13 @@ export class AnalyzerService {
         }
 
         try {
-            await this.parser.parse(document.getText());
+            const result = await this.parser.parse(document.uri.fsPath);
+            // For now, just log result and show success notification
+            console.log('Extractor result:', JSON.stringify(result, null, 2));
             vscode.window.showInformationMessage('Analysis completed');
-        } catch (error) {
-            vscode.window.showErrorMessage('Failed to analyze file: ' + error);
+        } catch (error: any) {
+            console.error('Analyze error:', error);
+            vscode.window.showErrorMessage('Failed to analyze file: ' + (error.message || String(error)));
         }
     }
 
